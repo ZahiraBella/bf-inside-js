@@ -1,30 +1,5 @@
 'use strict';
-
-/* Passing Functions
-
-  the big idea of callbacks is not complicated:
-    1. pass a function as an argument
-    2. use that function inside of another function
-
-  callbacks are about how you USE a function
-    they're just normal functions!
-
-*/
-
-// --- declare callbacks ---
-
-const isLongString = (str = '') => {
-  return str.length > 5;
-};
-const hasACat = (string = '') => {
-  return string.toLowerCase().includes('cat');
-};
-const isMyName = (txt = '') => {
-  return txt === '__'; // <-- your name here
-};
-
-// --- declare function that uses a callback ---
-
+// --- declare function that uses the callbacks ---
 /**
  * Checks if something is true about a string.
  *
@@ -36,20 +11,56 @@ const checkIt = (text = '', cb) => {
   const itIsSo = cb(text);
   return itIsSo ? 'yes' : 'no';
 };
-
-// --- test the checkIt function ---
-
-const check1 = checkIt('bye', isLongString);
-console.assert(check1 === 'no', 'Test 1');
-
-const check2 = checkIt('good bye', isLongString);
-console.assert(check2 === 'yes', 'Test 2');
-
-const check3 = checkIt('I like dogs.', hasACat);
+// --- declare and test first callback ---
+/**
+ * Checks if a string is a palindrome.
+ * (the same forwards and backwards)
+ *
+ * @param {string} [str=''] - The string to check.
+ * @returns {boolean} Whether or not the string is a palindrome.
+ *
+ *
+ */
+function reverseWords(str) {
+  let reverseWordArr = str
+    .split(' ')
+    .map((word) => word.split('').reverse().join(''));
+  return reverseWordArr.join(' ');
+}
+const isPalindrome = (str = '') => {
+  if (reverseWords(str) === str) {
+    return true;
+  } else {
+    return false;
+  }
+};
+const check1 = checkIt('RacEcaR', isPalindrome);
+console.assert(check1 === 'yes', 'Test 1');
+const check2 = checkIt('Racecar', isPalindrome);
+console.assert(check2 === 'no', 'Test 2');
+const check3 = checkIt('-+(*)+-', isPalindrome);
 console.assert(check3 === 'no', 'Test 3');
 
-const check4 = checkIt('concatenate', hasACat);
-console.assert(check4 === 'yes', 'Test 4');
+// --- declare and test second callback ---
+/**
+ * Checks if a string is "JavaScript" or "JS".
+ * The check is not case-sensitive.
+ *
+ * @param {string} [str=''] - The string to check.
+ * @returns {boolean} Whether or not the string is JS.
+ */
 
-const check5 = checkIt('__', isMyName); // <-- your name here
-console.assert(check5 === 'yes', 'Test 5');
+const isJS = (txt = '') => {
+  if (/javascript/i.test(txt) || /js/i.test(txt)) {
+    return true;
+  } else return false;
+};
+
+const check4 = checkIt('JavaSCripT', isJS);
+console.assert(check4 === 'yes', 'Test 4');
+const check5 = checkIt('javaskript', isJS);
+console.assert(check5 === 'no', 'Test 5');
+const check6 = checkIt('JS', isJS);
+console.assert(check6 === 'yes', 'Test 6');
+const check7 = checkIt('js', isJS);
+console.assert(check7 === 'yes', 'Test 7');

@@ -10,16 +10,16 @@ console.log('-- begin --');
 //  what happens when you divide by NaN?
 //  what happens when you divide by Infinity?
 
-const _1_expect = _; // 1 / 1
-const _1_native = '1' / 1;
+const _1_expect = 1 /1 ; // 1 / 1
+const _1_native = Number('1')/ 1;
 console.assert(Object.is(_1_expect, _1_native), 'Test 1');
 
-const _2_expect = _; // 1 / 0
+const _2_expect = 1/0 ; // 1 / 0
 const _2_native = 1 / 0;
 console.assert(Object.is(_2_expect, _2_native), 'Test 2');
 
-const _3_expect = _; // 0 / 0
-const _3_native = false / null;
+const _3_expect = 0/0 ; // 0 / 0
+const _3_native = number(false / null);
 console.assert(Object.is(_3_expect, _3_native), 'Test 3');
 
 const _4_expect = _; // __
@@ -31,7 +31,7 @@ const _5_native = false / true;
 console.assert(Object.is(_5_expect, _5_native), 'Test 5');
 
 const _6_expect = _; // __
-const _6_native = '13' / Infinity;
+const _6_native = number('13') / number(Infinity);
 console.assert(Object.is(_6_expect, _6_native), 'Test 6');
 
 const _7_expect = _; // __

@@ -1,15 +1,22 @@
 import { readString, display } from '../../../../lib/dom-io.js';
 
-document.getElementById(__).addEventListener('click', () => {
+document.getElementById('pyramid-it').addEventListener('click', () => {
   debugger;
 
   // read user text
 
-  // create the pyramid
+  let toPyramid = readString('to-pyramid');
 
-  for (_; _; _) {
-    for (_; _; _) {}
+  // create the pyramid
+  let pyramid = '';
+  for (let i = 0; i < toPyramid.length; i++) {
+    pyramid = pyramid + '\n';
+    for (let j = i; j < toPyramid.length ; j++) {
+    pyramid = pyramid + toPyramid[j];
+    }
   }
 
   // display the pyramid
+
+  display('pyramided', pyramid);
 });
